@@ -1,0 +1,38 @@
+<h3 id="package_update">Update dataset</h3>
+<p class="bg-gray-100 py-2 pl-2">
+    Metódy update môžu odstrániť parametre, ktoré nie sú výslovne uvedené v data_dict.
+    Ak chcete upraviť iba konkrétny atribút, použite namiesto toho package_patch.
+</p>
+<p>
+    Odporúča sa zavolať <a href="#package_show">ckan.logic.action.get.package_show()</a>,
+    vykonať požadované zmeny vo výsledku a potom s ním zavolať <a href="#package_update">package_update()</a>.
+</p>
+<p>
+    <a target="_blank" href="https://docs.ckan.org/en/2.9/api/index.html#ckan.logic.action.update.package_update">
+         ckan.logic.action.update.package_update(context, data_dict)
+    </a>
+</p>
+
+<pre class="language-sh prism-code"><code><span
+        class="token function">curl</span> -X POST {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_patch', qualified=True) }} \
+-H <span class="token string">"Authorization: {API_KEY}"</span> \
+-d <span class="token string">'{
+   ...
+   "notes": "Update popisky datasetu",
+   "owner_org": "nazov_organizacie",
+   "license_id": "cc-zero",
+   ...
+   }'</span>
+</code></pre>
+
+<p>Odpoveď:</p>
+
+<pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_patch"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"license_title"</span><span class="token operator">:</span> <span class="token null keyword">"Creative Commons CCZero"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>

@@ -1,0 +1,28 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Accessibility statement') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('Accessibility statement') }}</li>
+{% endblock %}
+
+{% block primary %}
+    <article class="" role="main">
+        <div class="">
+            {% block about %}
+                {% if g.site_about %}
+                    {{ h.render_markdown(g.site_about) }}
+                {% else %}
+                    <h1 class="govuk-heading-l">{{ _('Accessibility statement') }}</h1>
+                    {% if h.lang() == 'en' %}
+                        {% snippet 'mzv_pages/accessibility_statement/snippets/accessibility_statement_text_en.html' %}
+                    {% else %}
+                        {% snippet 'mzv_pages/accessibility_statement/snippets/accessibility_statement_text_sk.html' %}
+                    {% endif %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}

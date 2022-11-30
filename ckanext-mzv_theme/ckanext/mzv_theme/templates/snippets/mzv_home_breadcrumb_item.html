@@ -1,0 +1,7 @@
+{# Used to insert the home icon into a breadcrumb #}
+<li class="govuk-breadcrumbs__list-item">
+    <i class="fas fa-home"></i>
+    <a class="govuk-breadcrumbs__link" href="{{ h.url_for('home.index') }}" aria-label="{{ _('Home') }}">
+        <span class="govuk-!-margin-left-1">{{ _('Home') }}</span>
+    </a>
+</li>

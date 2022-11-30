@@ -1,0 +1,24 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Content manager') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('Content manager') }}</li>
+{% endblock %}
+
+{% block primary %}
+    <article class="" role="main">
+        <div class="">
+            {% block about %}
+                {% if g.site_about %}
+                    {{ h.render_markdown(g.site_about) }}
+                {% else %}
+                    <h1 class="govuk-heading-l">{{ _('Content manager') }}</h1>
+                    {% snippet 'mzv_pages/content_manager/snippets/content_manager_text.html' %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}

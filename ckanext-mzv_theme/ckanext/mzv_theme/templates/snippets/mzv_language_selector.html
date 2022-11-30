@@ -1,0 +1,26 @@
+{% set current_lang = request.environ.CKAN_LANG %}
+{% set display_lang = h.lang() %}
+<div class="idsk-header-web__brand-language tw-relative">
+    <button class="idsk-header-web__brand-language-button tw-lowercase" aria-label="Rozbaliť jazykové menu"
+            aria-expanded="false" data-text-for-hide="Skryť jazykové menu"
+            data-text-for-show="Rozbaliť jazykové menu">
+        {% if display_lang == 'sk' %}
+            slovenčina
+        {% elif display_lang == 'en' %}
+            english
+        {% endif %}
+        <div class="idsk-header-web__link-arrow"></div>
+    </button>
+    <ul class="idsk-header-web__brand-language-list tw-absolute tw-right-0">
+        {% for locale in h.get_available_locales() %}
+            <li class="idsk-header-web__brand-language-list-item">
+                <a class="govuk-link idsk-header-web__brand-language-list-item-link tw-lowercase
+                {% if locale.short_name== current_lang %}idsk-header-web__brand-language-list-item-link--selected{% endif %}"
+                   title="{{ locale.display_name or locale.english_name }}"
+                   href="{% url_for h.current_url(), locale=locale.short_name %}">
+                    {{ locale.display_name or locale.english_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,125 @@
+{#
+  Renders a single resource with icons and view links.
+
+  res - A resource dict to render
+  pkg - A package dict that the resource belongs to
+  can_edit - Whether the user is allowed to edit the resource
+  url_is_edit - Whether the link to the resource should be to editing it (set to False to make the link view the resource)
+  is_activity_archive - Whether this is an old version of the dataset (and therefore read-only)
+
+  Example:
+
+    {% snippet "package/snippets/resource_item.html", res=resource, pkg_dict=pkg_dict, can_edit=True, url_is_edit=False %}
+
+#}
+{% set url_action = pkg.type ~ ('_resource.edit' if url_is_edit and can_edit else '_resource.read') %}
+{% set url = h.url_for(url_action, id=pkg.id if is_activity_archive else pkg.name, resource_id=res.id, **({'activity_id': request.args['activity_id']} if 'activity_id' in request.args else {})) %}
+
+<li class="tw-py-4" x-data="{ open: false }" data-id="{{ res.id }}">
+    <div class="tw-flex tw-flex-col tw-w-full md:tw-flex-row md:tw-justify-between md:tw-items-start md:tw-space-x-3">
+
+        <div class="tw-flex tw-items-center md:tw-space-x-2">
+            <div class="tw-hidden md:tw-flex tw-flex-shrink-0 tw-items-center">
+                {% snippet "package/snippets/mzv_resource_icon.html", res=res.format %}
+            </div>
+
+            <div class="tw-shrink">
+                <a class="tw-m-0 govuk-link govuk-link--no-visited-state idsk-heading-basic-variant"
+                   href="{{ url }}"
+                   title="{{ res.name or res.description }}">
+                    {{ h.resource_display_name(res) | truncate(80) }}
+                    {# {{ h.popular('views', res.tracking_summary.total, min=10) if res.tracking_summary }} #}
+                </a>
+                <p class="govuk-body-s tw-m-0">
+                    {% if res.description %}
+                        {{ h.markdown_extract(h.get_translated(res, 'description'), extract_length=80) }}
+                    {% endif %}
+                </p>
+
+            </div>
+        </div>
+        {#<div>
+            <span class="format-label" property="dc:format"
+              data-format="{{ res.format.lower() or 'data' }}">{{ h.get_translated(res, 'format') }}</span>
+        </div>#}
+        {% if not url_is_edit %}
+            <div class="tw-relative tw-block">
+                <div class="tw-mt-3 md:tw-mt-0">
+                    <button aria-expanded="false" aria-haspopup="true"
+                            aria-label="Rozbaliť {{ _('Explore') }} menu"
+                            data-text-for-hide="Skryť {{ _('Explore') }} menu"
+                            data-text-for-show="Rozbaliť {{ _('Explore') }} menu"
+                            class="idsk-button tw-w-auto tw-mb-0 tw-group tw-bg-idsk-blue hover:tw-bg-idsk-dark-blue"
+                            data-module="idsk-button" type="button" @click="open = !open"
+                            @keydown.escape="open = false">
+                        <i class="fa fa-share"></i>
+                        {{ _('Explore') }}
+                        <div class="idsk-header-web__link-arrow tw-bg-idsk-white group-focus:tw-bg-idsk-black"></div>
+                    </button>
+                </div>
+
+                <div x-show="open" x-ref="panel"
+                     x-transition:enter="tw-transition tw-ease-out tw-duration-100"
+                     x-transition:enter-start="tw-transform tw-opacity-0 tw-scale-95"
+                     x-transition:enter-end="tw-transform tw-opacity-100 tw-scale-100"
+                     x-transition:leave="tw-transition tw-ease-in tw-duration-75"
+                     x-transition:leave-start="tw-transform tw-opacity-100 tw-scale-100"
+                     x-transition:leave-end="tw-transform tw-opacity-0 tw-scale-95"
+                     @click.away="open = false"
+                     class="tw-z-10 tw-origin-top-right tw-absolute md:tw-right-0 tw-mt-2 tw-w-56 tw-rounded-md tw-shadow-lg tw-bg-white tw-ring-1 tw-ring-black tw-ring-opacity-5 tw-divide-y tw-divide-gray-100 focus:tw-outline-none"
+                     role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="tw-py-1" role="none">
+                        <a href="{{ url }}"
+                           class="govuk-link--no-underline govuk-link--no-visited-state tw-flex tw-items-center tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                           role="menuitem"
+                           tabindex="-1" id="menu-item-0">
+                            {% if not is_activity_archive and res.has_views %}
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="tw-mr-3 tw-h-5 tw-w-5 tw-text-gray-400 group-hover:tw-text-gray-500"
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                {{ _('Preview') }}
+                            {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="tw-mr-3 tw-h-5 tw-w-5 tw-text-gray-400 group-hover:tw-text-gray-500"
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                {{ _('More information') }}
+                            {% endif %}
+                        </a>
+                        {% if res.url and h.is_url(res.url) %}
+                            <a href="{{ res.url }}"
+                               class="govuk-link--no-underline govuk-link--no-visited-state tw-flex tw-items-center tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                               target="_blank" role="menuitem"
+                               tabindex="-1" id="menu-item-1">
+                                {% if res.has_views or res.url_type == 'upload' %}
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="tw-mr-3 tw-h-5 tw-w-5 tw-text-gray-400 group-hover:tw-text-gray-500"
+                                         fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                    </svg>
+                                    {{ _('Download') }}
+                                {% else %}
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="tw-mr-3 tw-h-5 tw-w-5 tw-text-gray-400 group-hover:tw-text-gray-500"
+                                         fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                                    </svg>
+                                    {{ _('Go to resource') }}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</li>

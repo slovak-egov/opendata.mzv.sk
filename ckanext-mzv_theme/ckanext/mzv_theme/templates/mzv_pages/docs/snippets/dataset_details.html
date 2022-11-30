@@ -1,0 +1,20 @@
+
+            <h3 id="package_show">Podrobnosti o datasete</h3>
+
+            <p>
+                <a target="_blank" href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_show', qualified=True) }}?id=zoznam-autobusovych-zastavok-translink">
+                {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_show', qualified=True) }}?id=zoznam-autobusovych-zastavok-translink</a>
+            </p>
+
+            <pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_show"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"license_title"</span><span class="token operator">:</span> <span class="token string">"Creative Commons CCZero"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+

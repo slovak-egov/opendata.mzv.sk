@@ -1,0 +1,51 @@
+{% extends "page.html" %}
+
+{% set pkg = pkg_dict %}
+{% set dataset_type = dataset_type or pkg.type or 'dataset' %}
+
+{% block subtitle %}{{ h.dataset_display_name(pkg) }} {{ super() }}{% endblock %}
+
+{% block head_extras -%}
+    {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
+    <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
+    <meta property="og:description" content="{{ description|forceescape|trim }}">
+{% endblock -%}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item">{% link_for _(dataset_type.title()), named_route=dataset_type ~ '.search', class_='govuk-breadcrumbs__link' %}</li>
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ h.dataset_display_name(pkg) }}</li>
+{% endblock %}
+
+{% block content %}
+    <section id="detail" class="">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+                <h2 class="govuk-heading-l">{{ h.dataset_display_name(pkg) }}</h2>
+                <hr class="idsk-crossroad-line" aria-hidden="true">
+                {% if pkg.notes %}
+                    <h3 class="govuk-heading-m govuk-!-margin-top-4">Popis</h3>
+                    <div class="govuk-body">
+                        <p> {# TODO: oprav font asi preklad robi problem - mozes dat do divu #}
+                            {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="govuk-grid-column-full">
+                <div class="govuk-!-margin-top-8">
+                    {% snippet "package/snippets/mzv_resources_list.html", pkg=pkg, resources=pkg.resources, is_activity_archive=is_activity_archive %}
+                </div>
+
+                <div class="govuk-!-margin-top-8">
+                    {% snippet "package/snippets/mzv_tags.html", tags=pkg.tags %}
+                </div>
+
+                <div class="govuk-!-margin-top-8">
+                    {% snippet "package/snippets/mzv_additional_info.html", pkg_dict=pkg %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% snippet "snippets/mzv_license.html", pkg_dict=pkg %}
+{% endblock %}

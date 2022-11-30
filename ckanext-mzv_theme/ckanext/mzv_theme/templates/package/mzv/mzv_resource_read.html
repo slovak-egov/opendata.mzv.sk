@@ -1,0 +1,185 @@
+{% extends "page.html" %}
+
+{% set pkg = pkg_dict %}
+{% set dataset_type = dataset_type or pkg.type or 'dataset' %}
+{% set res = resource %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item mzv-list">
+        {{ h.dataset_link(pkg) }}
+    </li>
+{% endblock %}
+
+{% block content %}
+    {# Sledujete staru verziu #}
+    {% if is_activity_archive %}
+        <div id="activity-archive-notice" class="govuk-inset-text">
+            <p class="govuk-body-m">
+                {% trans url=h.url_for(pkg.type ~ '.read', id=pkg.id) %}
+                    You're currently viewing an old version of this dataset. To see the
+                    current version, click <a href="{{ url }}">here</a>.
+                {% endtrans %}
+            </p>
+        </div>
+    {% endif %}
+
+    {# Nadpis, URL, popis, tlacidla #}
+    <div class="tw-flex tw-flex-col tw-w-full tw-mb-10 md:tw-flex-row md:tw-justify-between md:tw-items-start md:tw-space-x-3">
+        <div class="tw-shrink">
+            <h2 class="govuk-heading-l md:tw-mb-0">{{ h.resource_display_name(res) | truncate(50) }}</h2>
+        </div>
+        <div class="tw-flex tw-items-center tw-shrink-0">
+            {% if res.url and h.is_url(res.url) %}
+                <div class="tw-relative tw-z-0 tw-inline-flex">
+                    <a class="idsk-button tw-mb-0 tw-group tw-bg-idsk-blue hover:tw-bg-idsk-dark-blue
+                    resource-type-{{ res.resource_type }}" href="{{ res.url }}">
+                        <i class="fas fa-arrow-alt-circle-down"></i>
+                        {{ _('Download') }}
+                        {#<div class="idsk-header-web__link-arrow tw-bg-idsk-white group-focus:tw-bg-idsk-black"></div>#}
+                    </a>
+                    {% if res.datastore_active %}
+                        <div x-data="{ open: false }" class="-tw-ml-px tw-relative tw-block">
+                            <button aria-expanded="false" aria-haspopup="true"
+                                    type="button" @click="open = !open" @keydown.escape="open = false"
+                                    class="idsk-button tw-mb-0 tw-bg-idsk-blue hover:tw-bg-idsk-dark-blue mzv-separator"
+                                    id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                                <span class="tw-sr-only">Otvoriť možnosti</span>
+                                <!-- Heroicon name: solid/chevron-down -->
+                                <svg class="tw-h-5 tw-w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor"
+                                     aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <div x-show="open" x-ref="panel" @click.away="open = false"
+                                 x-transition:enter="tw-transition tw-ease-out tw-duration-100"
+                                 x-transition:enter-start="tw-transform tw-opacity-0 tw-scale-95"
+                                 x-transition:enter-end="tw-transform tw-opacity-100 tw-scale-100"
+                                 x-transition:leave="tw-transition tw-ease-in tw-duration-75"
+                                 x-transition:leave-start="tw-transform tw-opacity-100 tw-scale-100"
+                                 x-transition:leave-end="tw-transform tw-opacity-0 tw-scale-95"
+                                 class="tw-z-10 tw-origin-top-right tw-absolute -tw-right-20 sm:-tw-right-16 md:tw-right-0 tw-mt-2 -tw-mr-1 tw-w-56 tw-rounded-md tw-shadow-lg tw-bg-white tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none"
+                                 role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button"
+                                 tabindex="-1">
+                                <div class="tw-py-1 govuk-body-s tw-mb-0" role="none">
+                                    <a tabindex="-1" id="option-menu-item-0" role="menuitem"
+                                       class="govuk-link--no-underline govuk-link--no-visited-state tw-block tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                                       href="{{ h.url_for('datastore.dump', resource_id=res.id, bom=True) }}"
+                                       target="_blank"><span>CSV</span></a>
+                                    <a tabindex="-1" id="option-menu-item-1" role="menuitem"
+                                       class="govuk-link--no-underline govuk-link--no-visited-state tw-block tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                                       href="{{ h.url_for('datastore.dump', resource_id=res.id, format='tsv', bom=True) }}"
+                                       target="_blank"><span>TSV</span></a>
+                                    <a tabindex="-1" id="option-menu-item-2" role="menuitem"
+                                       class="govuk-link--no-underline govuk-link--no-visited-state tw-block tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                                       href="{{ h.url_for('datastore.dump', resource_id=res.id, format='json') }}"
+                                       target="_blank"><span>JSON</span></a>
+                                    <a tabindex="-1" id="option-menu-item-3" role="menuitem"
+                                       class="govuk-link--no-underline govuk-link--no-visited-state tw-block tw-px-4 tw-py-2 tw-text-sm tw-text-gray-700 hover:tw-bg-gray-100 hover:tw-text-gray-900"
+                                       href="{{ h.url_for('datastore.dump', resource_id=res.id, format='xml') }}"
+                                       target="_blank"><span>XML</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if res.datastore_active %}
+                <div class="tw-ml-3">
+                    {% snippet 'package/snippets/mzv_data_api_button.html', resource=res %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="idsk-crossroad-line" aria-hidden="true">
+    {% if res.url and h.is_url(res.url) %}
+        <p class="govuk-body">{{ _('URL:') }}
+            <a class="govuk-link govuk-link--no-visited-state" href="{{ res.url }}"
+               title="{{ res.url }}">{{ res.url }}</a>
+        </p>
+    {% elif res.url %}
+        <p class="govuk-body">{{ _('URL:') }} {{ res.url }}</p>
+    {% endif %}
+
+    <hr class="idsk-crossroad-line" aria-hidden="true">
+    <div class="govuk-body-m" property="rdfs:label">
+        {% if res.description %}
+            {{ h.render_markdown(res.description) }}
+        {% endif %}
+        {% if not res.description and package.notes %}
+            <h3 class="govuk-heading-m govuk-!-margin-top-4">{{ _('Dataset description:') }}</h3>
+            <blockquote
+                    class="govuk-body-m tw-mx-0">{{ h.markdown_extract(h.get_translated(package, 'notes')) }}</blockquote>
+
+            <div class="idsk-warning-text idsk-warning-text--info">
+                <div class="govuk-width-container">
+                    <div class="idsk-warning-text__text">
+                        {% trans dataset=package.title, url=h.url_for(package.type ~ '.read', id=package.id if is_activity_archive else package.name) %}
+                            Source:<a class="tw-ml-3 govuk-link govuk-link--no-visited-state"
+                                      href="{{ url }}">{{ dataset }}</a>{% endtrans %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {# KONIEC - Nadpis, URL, popis #}
+
+
+
+    {# Doplňujúce informácie #}
+    <div class="govuk-!-margin-top-8">
+        {% if res %}
+            <hr class="idsk-hr-separator govuk-!-margin-bottom-6">
+            <div class="module" data-module="idsk-table">
+                <table class="idsk-table">
+                    <caption
+                            class="govuk-heading-m govuk-table__caption govuk-table__caption--m">{{ _('Additional Information') }}</caption>
+                    <thead class="idsk-table__head">
+                    <tr class="idsk-table__row">
+                        <th scope="col" class="idsk-table__header"><span class="th-span">{{ _('Field') }}</span></th>
+                        <th scope="col" class="idsk-table__header"><span class="th-span">{{ _('Value') }}</span></th>
+                    </tr>
+                    </thead>
+                    <tbody class="idsk-table__body">
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('Data last updated') }}</th>
+                        <td class="idsk-table__cell">{{ h.render_datetime(res.last_modified) or h.render_datetime(res.created) or _('unknown') }}</td>
+                    </tr>
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('Metadata last updated') }}</th>
+                        <td class="idsk-table__cell">{{ h.render_datetime(res.metadata_modified) or h.render_datetime(res.created) or _('unknown') }}</td>
+                    </tr>
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('Created') }}</th>
+                        <td class="idsk-table__cell">{{ h.render_datetime(res.created) or _('unknown') }}</td>
+                    </tr>
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('Format') }}</th>
+                        <td class="idsk-table__cell">{{ res.format or res.mimetype_inner or res.mimetype or _('unknown') }}</td>
+                    </tr>
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('License') }}</th>
+                        <td class="idsk-table__cell">{% snippet "snippets/mzv_license.html", pkg_dict=pkg, text_only=True %}</td>
+                    </tr>
+                    {% for key, value in h.format_resource_items(res.items()) %}
+                        {% if key not in ('created', 'metadata modified', 'last modified', 'format') %}
+                            <tr class="idsk-table__row">
+                                <th scope="row" class="idsk-table__header">{{ key | capitalize }}</th>
+                                <td class="idsk-table__cell">{{ value }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+    {# KONIEC - Doplňujúce informácie #}
+
+    <div class="govuk-!-margin-top-8">
+        {% snippet "package/snippets/mzv_resources.html", pkg=pkg, active=res.id, action='read', is_activity_archive=is_activity_archive %}
+    </div>
+{% endblock %}

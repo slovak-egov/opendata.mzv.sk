@@ -1,0 +1,51 @@
+{#
+Displays a single of dataset.
+
+package        - A package to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+  {% snippet 'snippets/package_item.html', package=c.datasets[0] %}
+
+#}
+{% set truncate = truncate or 180 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+
+<div class="dataset-content">
+    <div class="idsk-heading idsk-heading-basic-variant">
+        <i class="fas fa-cubes tw-pr-2"></i>
+        {{ h.link_to(h.truncate(title, truncate_title), h.url_for('%s.read' % package.type, id=package.name), class="idsk-card-title govuk-link govuk-link--no-visited-state ") }}
+        {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+    </div>
+    {% if banner %}
+        <span class="banner">{{ _('Popular') }}</span>
+    {% endif %}
+    {% if notes %}
+        <div class="idsk-body idsk-body-basic-variant">{{ notes|urlize }}</div>
+    {% else %}
+        <p class="idsk-body idsk-body-basic-variant">{{ _("This dataset has no description") }}</p>
+    {% endif %}
+</div>
+{% if package.resources and not hide_resources %}
+    <div class="idsk-card-meta-container tw-mt-1 tw-pb-0">
+        {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+            <div class="tw-inline-flex tw-items-baseline tw-px-2.5 tw-py-0.5 tw-rounded-full tw-text-sm tw-font-medium
+            tw-bg-blue-100 md:tw-mt-2 lg:tw-mt-0">
+                <span class="tw-text-idsk-blue govuk-link--no-underline govuk-link--no-visited-state">{{ resource.lower() }}
+                        {#<i class="fas fa-file tw-pr-1"></i>#}
+                        {#<a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}"
+                           class="govuk-link tw-lowercase govuk-link--no-visited-state"
+                           data-format="{{ resource.lower() }}">{{ resource }}</a>#}
+
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,43 @@
+{#
+Renders a media item for a group. This should be used in a list.
+
+group - A group dict.
+
+Example:
+
+    <ul class="media-grid">
+      {% for group in groups %}
+        {% snippet "group/snippets/group_item.html", group=group %}
+      {% endfor %}
+    </ul>
+#}
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '.read', id=group.name) %}
+{% block item %}
+    <li class="tw-flex tw-items-center tw-py-4">
+        <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}"
+             alt="{{ group.name }}" class="tw-h-10 tw-w-10">
+        <div class="tw-ml-3">
+            <a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}"
+               class="govuk-link govuk-heading-S govuk-link--no-visited-state tw-mb-0">
+                {{ group.display_name }}
+            </a>
+
+            {% if group.description %}
+                <p class="govuk-body-m tw-mb-0">{{ h.markdown_extract(group.description, extract_length=80) }}</p>
+            {% endif %}
+
+
+            {% block datasets %}
+                {% if group.package_count %}
+                    <p class="govuk-body-s tw-mb-0">{{ ungettext('{num} Dataset', '{num} Datasets', group.package_count).format(num=group.package_count) }}</p>
+                {% elif group.package_count == 0 %}
+                    <p class="govuk-body-s tw-mb-0">{{ _('0 Datasets') }}</p>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </li>
+{% endblock %}
+{% if position is divisibleby 3 %}
+    <li class="govuk-clearfix tw-hidden"></li>
+{% endif %}

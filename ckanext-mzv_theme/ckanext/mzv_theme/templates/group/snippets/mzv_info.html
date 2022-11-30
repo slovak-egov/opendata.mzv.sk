@@ -1,0 +1,17 @@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+        <h2 class="govuk-heading-l">
+            {{ group.display_name }}
+            {% if group.state == 'deleted' %}
+                [{{ _('Deleted') }}]
+            {% endif %}
+        </h2>
+
+        {% if group.description %}
+            <p class="govuk-body-m">
+                {{ h.markdown_extract(group.description, 400) }}
+            </p>
+        {% endif %}
+
+    </div>
+</div>

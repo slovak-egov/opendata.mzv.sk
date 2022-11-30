@@ -1,0 +1,59 @@
+<div class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
+    <article>
+        <header id="ckan-version"  class="mb-9 space-y-1">
+            <p class="text-sm font-medium text-sky-500">API referencia</p>
+            <h1 class="text-3xl tracking-tight font-normal text-slate-900">
+                Ckan v{{ h.ckan_version() }}</h1>
+        </header>
+
+        <div class="prose prose-slate max-w-none prose-headings:font-normal prose-headings:scroll-mt-28
+            prose-lead:text-slate-500 prose-pre:bg-slate-900 prose-pre:rounded-xl prose-pre:shadow-lg
+            lg:prose-headings:scroll-mt-[8.5rem] prose-a:text-sky-500 prose-a:font-semibold prose-a:no-underline
+            hover:prose-a:underline">
+            <p>
+                CKAN je kompletné softvérové riešenie, vďaka ktorému sú údaje prístupné a použiteľné –
+                poskytovaním nástrojov na zefektívnenie publikovania,
+                zdieľania, vyhľadávania a používania údajov (vrátane ukladania údajov a poskytovania robustných
+                dátových rozhraní API). CKAN je zameraný na vydavateľov údajov (národné a regionálne vlády, spoločnosti
+                a organizácie), ktorí chcú sprístupniť svoje údaje.
+            </p>
+            <hr>
+
+            <h2>Niekoľko užitočných API koncových bodov</h2>
+            <p>CKAN Action API je výkonné API v RPC-štýle, ktoré vystavuje všetky základné CKAN funkcie API klientom.
+                </p>
+
+
+            {% snippet 'mzv_pages/docs/snippets/check_portal_status.html' %}
+            {% snippet 'mzv_pages/docs/snippets/organization_list.html' %}
+            {% snippet 'mzv_pages/docs/snippets/list_of_licenses.html' %}
+            {% snippet 'mzv_pages/docs/snippets/group_list.html' %}
+            {% snippet 'mzv_pages/docs/snippets/tag_list.html' %}
+            {% snippet 'mzv_pages/docs/snippets/list_of_all_datasets.html' %}
+            {% snippet 'mzv_pages/docs/snippets/search_for_dataset.html' %}
+            {% snippet 'mzv_pages/docs/snippets/dataset_details.html' %}
+            {% snippet 'mzv_pages/docs/snippets/search_for_resource.html' %}
+            {% snippet 'mzv_pages/docs/snippets/resource_details.html' %}
+
+            <hr>
+
+            <h3 id="curl">Curl</h3>
+            <p>
+                Syntax príkazu curl je nasledovná:
+            </p>
+            <div>
+                <p class="bg-gray-100 py-2 pl-2">curl <span class="token keyword module">[</span>options <span class="token keyword module">]</span> <span class="token keyword module">[</span>URL... <span class="token keyword module">]</span></p>
+                <p>Tu sú možnosti, ktoré môžme použiť pri volaní:</p>
+                <ul>
+                    <li><span class="bg-gray-100 p-1">-X</span>, <span class="bg-gray-100 p-1">--request</span> - Metóda HTTP, ktorá sa má použiť.</li>
+                    <li><span class="bg-gray-100 p-1">-i</span>, <span class="bg-gray-100 p-1">--include</span> - Zahrnie hlavičky odpovedí.</li>
+                    <li><span class="bg-gray-100 p-1">-H</span>, <span class="bg-gray-100 p-1">--header</span> - Ďalšia hlavička, ktorá sa má odoslať.</li>
+                </ul>
+            </div>
+
+
+            {% snippet 'mzv_pages/api_docs/snippets/curl_portal_status.html' %}
+
+        </div>
+    </article>
+</div>

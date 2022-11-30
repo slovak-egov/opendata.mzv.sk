@@ -1,0 +1,24 @@
+
+            <h3 id="resource_show">Podrobnosti o zdroji</h3>
+
+            <p>
+                <a target="_blank" href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_show', qualified=True) }}?id=96455004-cfab-4215-8741-2917ebbd6d7f">
+                {{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_show', qualified=True) }}?id=96455004-cfab-4215-8741-2917ebbd6d7f</a>
+            </p>
+
+            <pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=resource_show"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"mimetype"</span><span class="token operator">:</span> <span class="token null keyword">text/csv</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+            <p>
+                <b>Poznámka:</b> Toto je len niekoľko príkladov. Úplný zoznam API akcií nájdeme v <a target="_blank" href="https://docs.ckan.org/en/2.9/api/#action-api-reference">sprievodcovi CKAN API</a>.
+            </p>
+
+
+

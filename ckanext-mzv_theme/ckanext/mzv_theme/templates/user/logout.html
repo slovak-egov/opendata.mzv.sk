@@ -1,0 +1,20 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Logged Out') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('Logged Out') }}</li>
+{% endblock %}
+
+{% block content %}
+<section class=" govuk-grid-row govuk-!-margin-top-8 govuk-!-margin-bottom-9">
+    <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-l">
+            {% block page_heading %}{{ _('Logged Out') }}{% endblock %}
+        </h2>
+        <div class="govuk-inset-text">
+            <p class="govuk-body-m">{% trans %}You are now logged out.{% endtrans %}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

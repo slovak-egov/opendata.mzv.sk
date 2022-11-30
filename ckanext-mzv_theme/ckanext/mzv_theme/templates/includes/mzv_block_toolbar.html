@@ -1,0 +1,16 @@
+{% block toolbar %}
+    <div class="govuk-width-container" role="navigation" aria-label="{{ _('Breadcrumb') }}">
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-6 govuk-!-padding-0">
+            <div class="govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile">
+                {% block breadcrumb %}
+                    {% if self.breadcrumb_content() | trim %}
+                        <ol class="govuk-breadcrumbs__list">
+                            {% snippet 'snippets/mzv_home_breadcrumb_item.html' %}
+                            {% block breadcrumb_content %}{% endblock %}
+                        </ol>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

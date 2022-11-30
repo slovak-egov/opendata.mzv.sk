@@ -1,0 +1,44 @@
+{% extends "page.html" %}
+{% set groups = h.get_featured_groups(count=10) %}
+
+{% block subtitle %}{{ _("Welcome") }}{% endblock %}
+
+{% block content %}
+    {% if h.lang() == 'en' %}
+        <article class="" role="main">
+            <div class="">
+                {% block about %}
+                    {% if g.site_about %}
+                        {{ h.render_markdown(g.site_about) }}
+                    {% else %}
+                        <h1 class="govuk-heading-l">{{ _('About') }}</h1>
+                        {% snippet 'home/snippets/about_text_en.html' %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </article>
+
+    {% else %}
+        <div class="govuk-grid-row leadership-item-content govuk-!-margin-top-8">
+            <div class="govuk-grid-column-full">
+                <h1 class="govuk-heading-l">Katalógy</h1>
+            </div>
+        </div>
+
+        <div class="tw-bg-white">
+            <div class="tw-mx-auto tw-overflow-hidden">
+                {% if groups %}
+                    <div class="tw-grid tw-grid-cols-1 tw-gap-y-10 tw-gap-x-6 sm:tw-grid-cols-2 lg:tw-grid-cols-3 lg:tw-gap-x-8">
+                        {% for group in groups %}
+                            {% snippet "home/snippets/mzv_group_item.html", group=group, position=loop.index %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="govuk-inset-text">
+                        <p class="govuk-body-m">{{ _('There are currently no groups for this site') }}.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

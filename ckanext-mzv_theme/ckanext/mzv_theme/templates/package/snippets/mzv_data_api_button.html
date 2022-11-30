@@ -1,0 +1,10 @@
+{# Data API Help Button
+
+resource: the resource
+
+#}
+{% if resource.datastore_active %}
+  {% set loading_text = _('Loading...') %}
+  {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='mzv_api_info.html', resource_id=resource.id) %}
+  <a role="button" title="Otvorí API v novom okne" target="_blank" class="govuk-button tw-mb-0 tw-bg-idsk-light-blue hover:tw-bg-idsk-yellow hover:tw-text-idsk-black" href="{{ api_info_url }}" data-module="api-info" data-module-template="{{ api_info_url }}" data-loading-text="{{ loading_text }}"><i class="fa fa-flask fa-lg"></i> {{ _('Data API') }}</a>
+{% endif %}

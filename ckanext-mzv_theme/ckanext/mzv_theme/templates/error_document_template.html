@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block subtitle %}{{ gettext('Error %(error_code)s', error_code=code) }}{% endblock %}
+
+{% block page %}
+    <main class="govuk-width-container tw-flex tw-items-center" style="min-height: 100vh">
+        <div class="govuk-main-wrapper govuk-main-wrapper--auto-spacing">
+            <div class="tw-hidden md:tw-flex">
+                <p class="tw-text-idsk-blue govuk-heading-xl tw-text-8xl">{{ code }}</p>
+                <div class="tw-border-solid tw-border-0 tw-border-l tw-border-l-idsk-grey-3 govuk-!-margin-left-5 govuk-!-padding-left-5">
+                    {% if name %}
+                        <h1 class="govuk-heading-xl govuk-!-margin-bottom-0">{{ name }}</h1>
+                    {% endif %}
+                    <p class="govuk-body tw-text-idsk-grey-5">{{ content }}</p>
+                </div>
+            </div>
+            <div class="tw-flex-col md:tw-hidden">
+                <p class="tw-text-idsk-blue govuk-heading-xl tw-text-8xl">{{ code }}</p>
+                <div class="">
+                    {% if name %}
+                        <h1 class="govuk-heading-xl govuk-!-margin-bottom-0">{{ name }}</h1>
+                    {% endif %}
+                    <p class="govuk-body tw-text-idsk-grey-5">{{ content }}</p>
+                </div>
+            </div>
+            <div class="govuk-!-margin-top-8">
+                <div class="">
+                    <a href="{{ h.url_for('home.index') }}" class="govuk-body-s">{{ _('Back to home') }}<span
+                            aria-hidden="true"> &rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

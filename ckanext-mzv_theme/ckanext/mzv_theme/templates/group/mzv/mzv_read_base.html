@@ -1,0 +1,28 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ group_dict.display_name }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ group_dict.display_name|truncate(35) }}</li>
+{% endblock %}
+
+{% block content %}
+    {% snippet "group/snippets/mzv_info.html", group=group_dict, show_nums=true %}
+
+    <div class="govuk-grid-row ">
+        <div class="govuk-grid-column-full md:tw-px-0">
+            <div class="idsk-search-results " data-module="idsk-search-results">
+                {% block data_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {#{% block tab_nav %}
+        {{ h.build_nav_icon(group_type + '.read', _('Datasets'), id=group_dict.name, icon='sitemap') }}
+        {{ h.build_nav_icon(group_type + '.activity', _('Activity Stream'), id=group_dict.name, offset=0, icon='clock-o') }}
+        {{ h.build_nav_icon(group_type + '.about', _('About'), id=group_dict.name, icon='info-circle') }}
+    {% endblock %}#}
+
+{% endblock %}
+

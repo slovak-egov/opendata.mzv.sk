@@ -1,0 +1,47 @@
+# ignore everything in the root by default
+/*
+
+# allow this root files
+!.gitignore
+
+# allowed root directories
+!/ckanext-mzv_theme/
+
+# files allowed anywhere
+!readme.md
+
+# specifically ignore certain deeper items
+app-mzv/ckanext-mzv_theme/ckanext_mzv_theme.egg-info/*
+
+# generic
+*.swo
+ckan.egg-info/*
+sandbox/*
+dist
+.mypy_cache
+.eggs/*
+.DS_Store
+*.pyc
+*.log
+*.swp
+*.retry
+*.sqlite3
+*.db
+/tmp
+/.cache/
+/.pytest_cache/
+__pycache__
+
+### JetBrains
+*.idea/
+.idea/
+*.iml
+*.ipr
+*.iws
+coverage/
+
+### VSCode
+.vscode/
+
+/venv
+.venv/

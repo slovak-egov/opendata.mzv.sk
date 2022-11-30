@@ -1,0 +1,45 @@
+<!doctype html>
+
+{% set lang = h.lang() %}
+<html dir="ltr" lang="{{ lang }}" class="antialiased" data-theme="light">
+
+<head>
+    {%- block meta -%}
+        <meta charset="utf-8">
+        {% block meta_viewport %}
+            <meta name="viewport" content="width=device-width, initial-scale=1">{% endblock %}
+        {% block meta_generator %}
+            <meta name="generator" content="ckan {{ h.ckan_version() }}">{% endblock %}
+    {%- endblock -%}
+
+    <title>
+        API Dokumentácia
+    </title>
+
+    <script defer src="/default/js/libs/alpine/alpine-3.10.3.min.js"></script>
+    <script src="/default/js/libs/tailwindcss/tailwind_and_plugins.3.1.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    maxWidth: {
+                        '8xl': '88rem',
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/default/css/api-docs.css">
+</head>
+
+<body class="bg-white m-0 font-sans" {% block bodytag %}
+      data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}"
+      data-locale-root="{{ h.url_for('/', qualified=true) }}" {% endblock %}>
+{% include "mzv_pages/api_docs/includes/header.html" %}
+
+<div class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
+    {% include "mzv_pages/api_docs/includes/left_side.html" %}
+    {% include "mzv_pages/api_docs/includes/docs_text.html" %}
+</div>
+</body>
+</html>

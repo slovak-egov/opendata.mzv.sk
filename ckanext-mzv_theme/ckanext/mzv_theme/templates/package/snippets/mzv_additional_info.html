@@ -1,0 +1,91 @@
+<hr class="idsk-hr-separator govuk-!-margin-bottom-6">
+<div class="" data-module="idsk-table" >
+    <table class="idsk-table">
+        <caption class="govuk-heading-m govuk-table__caption govuk-table__caption--m">{{ _('Additional Info') }}</caption>
+        <thead class="idsk-table__head">
+            <tr class="idsk-table__row">
+                <th scope="col" class="idsk-table__header"><span class="th-span">{{ _('Field') }}</span></th>
+                <th scope="col" class="idsk-table__header"><span class="th-span">{{ _('Value') }}</span></th>
+            </tr>
+        </thead>
+        <tbody class="idsk-table__body">
+        {% if pkg_dict.url %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _('Source') }}</th>
+                {% if h.is_url(pkg_dict.url) %}
+                    <td class="idsk-table__cell"
+                        property="foaf:homepage">{{ h.link_to(pkg_dict.url, pkg_dict.url, rel='foaf:homepage', target='_blank') }}</td>
+                {% else %}
+                    <td class="idsk-table__cell" property="foaf:homepage">{{ pkg_dict.url }}</td>
+                {% endif %}
+            </tr>
+        {% endif %}
+
+        {% if pkg_dict.author_email %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("Author") }}</th>
+                <td class="idsk-table__cell"
+                    property="dc:creator">{{ h.mail_to(email_address=pkg_dict.author_email, name=pkg_dict.author) }}</td>
+            </tr>
+        {% elif pkg_dict.author %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("Author") }}</th>
+                <td class="idsk-table__cell" property="dc:creator">{{ pkg_dict.author }}</td>
+            </tr>
+        {% endif %}
+
+        {% if pkg_dict.maintainer_email %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _('Maintainer') }}</th>
+                <td class="idsk-table__cell"
+                    property="dc:contributor">{{ h.mail_to(email_address=pkg_dict.maintainer_email, name=pkg_dict.maintainer) }}</td>
+            </tr>
+        {% elif pkg_dict.maintainer %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _('Maintainer') }}</th>
+                <td class="idsk-table__cell" property="dc:contributor">{{ pkg_dict.maintainer }}</td>
+            </tr>
+        {% endif %}
+
+        {% if pkg_dict.version %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("Version") }}</th>
+                <td class="idsk-table__cell">{{ pkg_dict.version }}</td>
+            </tr>
+        {% endif %}
+
+        {% if h.check_access('package_update',{'id':pkg_dict.id}) %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("State") }}</th>
+                <td class="idsk-table__cell">{{ _(pkg_dict.state) }}</td>
+            </tr>
+        {% endif %}
+        {% if pkg_dict.metadata_modified %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("Last Updated") }}</th>
+                <td class="idsk-table__cell">
+                    {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.metadata_modified %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if pkg_dict.metadata_created %}
+            <tr class="idsk-table__row">
+                <th scope="row" class="idsk-table__header">{{ _("Created") }}</th>
+
+                <td class="idsk-table__cell">
+                    {% snippet 'snippets/local_friendly_datetime.html', datetime_obj=pkg_dict.metadata_created %}
+                </td>
+            </tr>
+        {% endif %}
+
+        {% for extra in h.sorted_extras(pkg_dict.extras) %}
+            {% set key, value = extra %}
+            <tr class="idsk-table__row" rel="dc:relation" resource="_:extra{{ i }}">
+                <th scope="row" class="idsk-table__header" property="rdfs:label">{{ _(key|e) }}</th>
+                <td class="idsk-table__cell" property="rdf:value">{{ value }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>

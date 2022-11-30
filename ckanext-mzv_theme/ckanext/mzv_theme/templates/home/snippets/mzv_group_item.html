@@ -1,0 +1,26 @@
+{% set type = group.type or 'group' %}
+{% set url = h.url_for(type ~ '.read', id=group.name) %}
+
+{% block item %}
+<a href="{{ url }}" title="{{ _('View {name}').format(name=group.display_name) }}"
+   class="govuk-link--no-underline tw-group tw-relative tw-flex tw-flex-col tw-space-y-4 tw-text-center tw-bg-idsk-lighter-grey group-hover:tw-opacity-75">
+    <div class="tw-w-full tw-overflow-hidden tw-pt-10">
+        <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}"
+             alt="{{ group.name }}"
+             class="tw-object-center tw-h-[4.5rem] tw-h-[4.5rem]">
+    </div>
+    <div class="tw-flex-1 tw-flex tw-flex-col tw-space-y-2 tw-px-4 tw-pb-4">
+        <h3 class="govuk-caption-m tw-text-idsk-black govuk-!-margin-0">{{ group.display_name }}</h3>
+        <div class="tw-flex-1 tw-flex tw-flex-col tw-justify-end">
+            {% if group.package_count %}
+            <p class="govuk-caption-m tw-text-idsk-black">{{ ungettext('{num} Dataset', '{num} Datasets',
+                group.package_count).format(num=group.package_count) }}</p>
+            {% elif group.package_count == 0 %}
+            <p class="govuk-caption-m tw-text-idsk-black">{{ _('0 Datasets') }}</p>
+            {% endif %}
+        </div>
+    </div>
+</a>
+{% endblock %}
+
+

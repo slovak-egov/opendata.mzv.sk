@@ -1,0 +1,56 @@
+<!doctype html>
+
+{% set lang = h.lang() %}
+<html dir="ltr" lang="{{ lang }}" class="tw-h-full govuk-template app-no-canvas-background tw-bg-white tw-antialiased">
+
+    <head>
+        {%- block meta -%}
+            <meta charset="utf-8">
+            {% block meta_viewport %}<meta name="viewport" content="width=device-width, initial-scale=1">{% endblock %}
+            {% block meta_generator %}<meta name="generator" content="ckan {{ h.ckan_version() }}">{% endblock %}
+        {%- endblock -%}
+
+        <title>
+            {%- block title -%}
+                {%- block subtitle %}{% endblock -%}
+                {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }} {% endif -%}
+                {{ g.site_title }}
+            {%- endblock -%}
+        </title>
+
+        <meta name="title" content="{{ g.site_title }}">
+        <meta name="description" content="{{ g.site_description }}">
+        <meta name="keywords" content=""><!-- TODO: pridaj klucove slova -->
+        <meta name="author" content="MICROCOMP - Computersystém s.r.o.">
+        <meta name="language" content="{{ lang }}">
+        <meta name="robots" content="index, follow">
+
+        {% block links -%}
+            <!-- <link rel="shortcut icon" href="{{ g.favicon }}"> -->
+            <link rel="apple-touch-icon" sizes="180x180" href="/default/images/favicons/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/default/images/favicons/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/default/images/favicons/favicon-16x16.png">
+            <link rel="manifest" href="/default/images/favicons/site.webmanifest">
+            <link rel="mask-icon" href="/default/images/favicons/safari-pinned-tab.svg" color="#ffffff">
+            <link rel="shortcut icon" href="/default/images/favicons/favicon.ico">
+            <meta name="apple-mobile-web-app-title" content="Opendata portál Ministerstva zahraničných vecí a európskych záležitostí SR.">
+            <meta name="msapplication-TileColor" content="#ffffff">
+            <meta name="msapplication-config" content="/default/images/favicons/browserconfig.xml">
+            <meta name="theme-color" content="#0b0c0c">
+        {% endblock -%}
+
+        <link rel="stylesheet" href="/id-sk/idsk-frontend-2.10.0.min.css"><!--<![endif]-->
+        <link rel="stylesheet" href="/default/css/tailwind.css">
+        <link rel="stylesheet" href="/default/css/main.css">
+    </head>
+
+    <body class="govuk-template__body tw-h-full" {% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" {% endblock %}>
+        <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+        {% block login %}{% endblock %}
+
+        <script src="/id-sk/idsk-frontend-2.10.0.min.js"></script>
+        <script>window.GOVUKFrontend.initAll()</script>
+        <script src="/default/js/main.js" defer></script>
+    </body>
+</html>

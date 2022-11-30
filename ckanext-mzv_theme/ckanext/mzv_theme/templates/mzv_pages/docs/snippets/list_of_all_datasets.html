@@ -1,0 +1,22 @@
+
+            <h3 id="package_list">Zoznam všetkých datasetov</h3>
+
+            <p>
+                <a target="_blank" href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_list', qualified=True) }}">
+                {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_list', qualified=True) }}</a>
+            </p>
+
+            <pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_list"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"dotacie-v-posobnosti-mzvez-sr"</span><span class="token punctuation">,</span>
+    <span class="token string">"plan-zverejnovania-datasetov"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+
+

@@ -1,0 +1,54 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Groups') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('Groups') }}</li>
+{% endblock %}
+
+
+{% block content %}
+    <h2 class="govuk-heading-l">{{ _('Groups') }}</h2>
+
+    <div class="govuk-grid-row ">
+        <div class="govuk-grid-column-full md:tw-px-0">
+            <div class="idsk-search-results " data-module="idsk-search-results">
+                <div class="govuk-grid-column-one-quarter " data-module="idsk-search-results-filter">
+                    {% snippet 'snippets/mzv_search_form_and_sortby.html', form_id='group-search-form', type='group', query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search groups...'), sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}
+                    {#{% snippet 'snippets/mzv_search_form_and_sortby.html', form_id='group-search-form', type='group', query=q, sorting_selected=sort_by_selected, count=page.item_count, placeholder=_('Search groups...'), show_empty=request.params, no_bottom_border=true if page.items, sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc')] %}#}
+                </div>
+
+                <div class="govuk-grid-column-three-quarters idsk-search-results__content ">
+
+                    {% block search_title %}
+                        {% snippet 'snippets/mzv_search_title_and_facets.html', form_id='group-search-form-2', type='group', query=q, count=page.item_count, show_empty=request.params %}
+                    {% endblock %}
+
+                    {% block groups_list %}
+                        <div class="govuk-grid-column-full">
+                            {% if page.items or request.params %}
+                                {% if page.items %}
+                                    {% snippet "group/snippets/mzv_group_list.html", groups=page.items %}
+                                {% endif %}
+                            {% else %}
+                                <p class="govuk-body-m">
+                                    {{ _('There are currently no groups for this site') }}.
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+
+                    <div class="govuk-clearfix"></div>
+
+                    {% block page_pagination %}
+                        {{ page.pager(q=q or '', sort=sort_by_selected or '') }}
+                    {% endblock %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,47 @@
+<h3 id="package_create">Vytvoriť dataset</h3>
+<p>
+    <a target="_blank" href="https://docs.ckan.org/en/2.9/api/#ckan.logic.action.create.package_create">
+        ckan.logic.action.create.package_create(context, data_dict)
+    </a>
+</p>
+
+<pre class="language-sh prism-code"><code><span
+        class="token function">curl</span> -X POST {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_create', qualified=True) }} \
+-H <span class="token string">"Authorization: {API_KEY}"</span> \
+-d <span class="token string">'{
+   "name": "nazov-datasetu",
+   "title": "Názov datasetu",
+   "notes": "Popis datasetu!",
+   "owner_org": "nazov_organizacie",
+   "license_id": "cc-zero",
+   "tags": [
+        {"name": "nazov existujuceho tagu"},
+        ...
+        ],
+   "groups": [
+        {"name": "nazov-kategorie"},
+        {"id": "id-kategorie"}
+        ...
+        ],
+   "extras": [
+        {"key": "nazov-kluca-1", "value": "nazov-hodnoty-1"}
+        {"key": "nazov-kluca-2", "value": "nazov-hodnoty-2"}
+        ...
+        ]
+   }'</span>
+</code></pre>
+
+<p>Odpoveď:</p>
+
+<pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_create"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"license_title"</span><span class="token operator">:</span> <span class="token null keyword">"Creative Commons CCZero"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+<p>Tým sa vytvorí prázdny (koncept) dataset bez zdrojov.</p>
+

@@ -1,0 +1,20 @@
+
+            <h3 id="package_search">Vyhľadanie datasetu</h3>
+
+            <p>
+                <a target="_blank" href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='package_search', qualified=True) }}?q=test">
+                {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_search', qualified=True) }}?q=test</a>
+            </p>
+
+            <pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_search"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+

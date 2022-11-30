@@ -1,0 +1,31 @@
+{#
+Renders the login form.
+
+action        - The url that the form should be submitted to.
+error_summary - A tuple/list of form errors.
+
+Example:
+
+{% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
+
+#}
+{% import 'macros/idsk_form.html' as form %}
+
+{% set username_error = true if error_summary %}
+{% set password_error = true if error_summary %}
+
+<form action="{{ action }}" method="post">
+    {{ form.errors(errors=error_summary) }}
+
+    {{ form.input('login', label=_("Username"), id='field-login', value="", error=username_error, classes=["govuk-form-group"], attrs={'class': 'govuk-input'}) }}
+
+    {{ form.input('password', label=_("Password"), id='field-password', type="password", value="", error=password_error, classes=["govuk-form-group"], attrs={'class': 'govuk-input'}) }}
+
+    {{ form.checkbox('remember', label=_("Remember me"), id='field-remember', checked=true, classes=["govuk-form-group"], value="63072000", attrs={'class': 'govuk-checkboxes__input'}) }}
+
+    <div class="tw-mt-5">
+        {% block login_button %}
+            <button class="idsk-button" data-module="idsk-button" type="submit">{{ _('Login') }}</button>
+        {% endblock %}
+    </div>
+</form>

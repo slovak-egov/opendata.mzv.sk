@@ -1,0 +1,64 @@
+{% import 'macros/form.html' as form %}
+
+{% set form_id = form_id if form_id else false %}
+
+<form {% if form_id %}id="{{ form_id }}" {% endif %} method="get" data-module="select-switch">
+
+   {# {% block search_search_fields %}
+        {% if fields -%}
+            <span>{{ form.hidden_from_list(fields=fields) }}</span>
+        {%- endif %}
+    {% endblock %}#}
+
+    {% block search_title %}
+        <div class="govuk-grid-column-full tw-flex tw-items-baseline tw-justify-between tw-mb-2">
+            <div class="">
+                {% if not error %}
+                    <h3 class="idsk-search-results__content__number-of-results tw-my-0">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</h3>
+                {% else %}
+                    <h3 class="idsk-search-results__content__number-of-results tw-my-0">Error</h3>
+                {% endif %}
+            </div>
+            <div class="">
+                <a class="govuk-body-s">{{ _('Filter Results') }}</a>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block search_facets %}
+        {% if facets %}
+            <div class="idsk-search-results__content__picked-filters govuk-grid-column-full">
+                {% for field in facets.fields %}
+                    <div class="tw-py-2 tw-flex tw-items-center {{ loop.cycle('idsk-search-results--grey', '') }} {% if loop.last %}idsk-search-results--border{% endif %}">
+                        {% set search_facets_items = facets.search.get(field)['items'] if facets.search and field in facets.search else [] %}
+
+                        <span class="idsk-search-results__text">{{ facets.titles.get(field) }}:</span>
+                        {% for value in facets.fields[field] %}
+                            <a class="tw-ml-3" tabindex="0" data-source="{{ value }}" data-id="{{ value }}">
+                                {%- if facets.translated_fields and (field,value) in facets.translated_fields -%}
+                                    {{ facets.translated_fields[(field,value)] }}
+                                {%- else -%}
+                                    {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
+                                {%- endif %}
+                                <a href="{{ facets.remove_field(field, value) }}" class="remove tw-ml-1"
+                                   title="{{ _('Remove') }}"><i class="fa fa-times tw-text-idsk-dark-grey"></i></a>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+</form>
+
+{% if show_empty and count == 0 and not error %}
+    {% trans %}
+        <p class="govuk-body tw-mt-5">Please try another search.</p>
+    {% endtrans %}
+{% endif %}
+
+{% if error %}
+    {% trans %}
+        <p id="search-error"><strong>There was an error while searching.</strong> Please try again.</p>
+    {% endtrans %}
+{% endif %}

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{%- block page -%}
+
+    {% block skip %}
+        <a href="#main-content" class="sr-only sr-only-focusable govuk-skip-link idsk-skip-link--sticky">{{ _('Skip to content') }}</a>
+    {% endblock %}
+
+    {% if not c.userobj %}
+        {% block header_debug %}
+            {% if g.debug and not g.debug_supress_header %}
+                <div class="govuk-phase-banner tw-border-none">
+                    <p class="govuk-phase-banner__content govuk-!-margin-left-2">
+                        <strong class="govuk-tag govuk-phase-banner__content__tag">
+                            debug
+                        </strong>
+                        <span class="idsk-crossroad-subtitle">
+                            Controller : {{ c.controller }} | Action : {{ c.action }}
+                        </span>
+                    </p>
+                </div>
+            {% endif %}
+        {% endblock %}
+    {% endif %}
+
+    {%- block header %}
+        {% if c.userobj %}
+            {% include "login_user/header.html" %}
+        {% else %}
+            {% include "header.html" %}
+        {% endif %}
+    {% endblock -%}
+
+    {% if not c.userobj %}
+        {% block toolbar %}
+            <div class="toolbar govuk-width-container" role="navigation" aria-label="{{ _('Breadcrumb') }}">
+                <div class="govuk-grid-column-full govuk-!-margin-bottom-6 govuk-!-padding-0">
+                    <div class="govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile">
+                        {% block breadcrumb %}
+                            {% if self.breadcrumb_content() | trim %}
+                                <ol class="breadcrumb govuk-breadcrumbs__list">
+                                    {% if c.userobj %}
+                                        {% snippet 'snippets/home_breadcrumb_item.html' %}
+                                    {% else %}
+                                        {% snippet 'snippets/mzv_home_breadcrumb_item.html' %}
+                                    {% endif %}
+                                    {% block breadcrumb_content %}{% endblock %}
+                                </ol>
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+
+    <main id="main-content" class="govuk-main-wrapper govuk-main-wrapper--auto-spacing">
+        <div class="govuk-width-container">
+            {%- block content %}
+                {% block maintag %}<div class="main">{% endblock %}
+                    <div class="container">
+                        {% block main_content %}
+                            {% block flash %}
+                                <div class="flash-messages">
+                                    {% block flash_inner %}
+                                        {% for message in h.flash.pop_messages() | list %}
+                                            <div class="alert fade in {{ message.category }}">
+                                                {{ h.literal(message) }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+
+                            {% if c.userobj %}
+                                {{ self.toolbar() }}
+                            {% endif %}
+
+                            <div class="row wrapper {% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' or c.action=='resource_read' %} no-nav{% endif %}">
+                                {#
+                                    Blok pre_primary je mozne pouzit na pridanie obsahu
+                                    pred vykreslenim hlavnych obsahovych stlpcov stranky.
+                                #}
+                                {% block pre_primary %}
+                                {% endblock %}
+
+                                {% block secondary %}
+                                    <aside class="secondary col-sm-3">
+                                        {#
+                                        Blok secondary_content je mozne pouzit na pridanie obsahu na bocny panel stranky.
+                                        Toto je hlavny blok, ktory sa pravdepodobne pouzije v ramci sablony.
+
+                                        Priklad:
+
+                                        {% block secondary_content %}
+                                            <h2>A sidebar item</h2>
+                                            <p>Some content for the item</p>
+                                        {% endblock %}
+                                        #}
+                                        {% block secondary_content %}{% endblock %}
+                                    </aside>
+                                {% endblock %}
+
+                                {% block primary %}
+                                    <div class="primary col-sm-9 col-xs-12" role="main">
+                                        {#
+                                        Blok primary_content je mozne pouzit na pridanie obsahu na stranku.
+                                        Toto je hlavny blok, ktory sa pravdepodobne pouzije v ramci sablony.
+
+                                        Priklad:
+
+                                        {% block primary_content %}
+                                            <h1>My page content</h1>
+                                            <p>Some content for the page</p>
+                                        {% endblock %}
+                                        #}
+                                        {% block primary_content %}
+                                            <article class="module">
+                                                {% block page_header %}
+                                                    <header class="module-content page-header">
+                                                        {% if self.content_action() | trim %}
+                                                            <div class="content_action">
+                                                                {% block content_action %}{% endblock %}
+                                                            </div>
+                                                        {% endif %}
+                                                        <ul class="nav nav-tabs">
+                                                            {% block content_primary_nav %}{% endblock %}
+                                                        </ul>
+                                                    </header>
+                                                {% endblock %}
+                                                <div class="module-content tw-px-5">
+                                                    {% if self.page_primary_action() | trim %}
+                                                        <div class="page_primary_action">
+                                                            {% block page_primary_action %}{% endblock %}
+                                                        </div>
+                                                    {% endif %}
+                                                    {% block primary_content_inner %}
+                                                    {% endblock %}
+                                                </div>
+                                            </article>
+                                        {% endblock %} {# KONIEC: block primary_content #}
+                                    </div>
+                                {% endblock %} {# KONIEC: block primary #}
+                            </div>
+                        {% endblock %} {# KONIEC: block main_content #}
+                    </div>
+                </div> {# KONIEC: maintag / main #}
+            {% endblock -%} {# KONIEC: block content #}
+        </div>
+    </main>
+
+    {%- block footer %}
+        {% if c.userobj %}
+            {% include "login_user/footer.html" %}
+        {% else %}
+            {% include "footer.html" %}
+        {% endif %}
+    {% endblock -%}
+{%- endblock -%}
+
+{% if c.userobj %}
+    {%- block scripts %}
+        {% asset 'base/main' %}
+        {% asset 'base/ckan' %}
+        {% if g.tracking_enabled %}
+            {% asset 'base/tracking' %}
+        {% endif %}
+        {{ super() }}
+    {% endblock -%}
+{% endif %}

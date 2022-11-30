@@ -1,0 +1,51 @@
+{% extends "user/base.html" %}
+
+{% block subtitle %}{{ _('Login') }}{% endblock %}
+
+{% block login %}
+<div class="tw-min-h-full tw-flex">
+
+    <div class="tw-flex-1 tw-flex tw-flex-col tw-justify-center tw-items-center">
+        <div class="">
+            <div class="tw-mb-10">
+                <a href="{{ h.url_for('home.index') }}" title="Odkaz na úvodnú stránku">
+                    <img src="/default/images/logo/mzv_color_sk.svg"
+                         alt="Logo - Ministerstvo zahraničných vecí a európskych záležitostí SR"
+                         class="idsk-header-web__main-headline-logo">
+                </a>
+            </div>
+
+            {% for message in h.flash.pop_messages() | list %}
+                <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        Problém pri prihlásení
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <p class="{{ message.category }}">
+                            {{ h.literal(message) }}
+                        </p>
+                        <!--<ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#full-name-input">Popis s odkazom na otázku, v ktorej nastala chyba</a>
+                            </li>
+                        </ul>-->
+                    </div>
+                </div>
+            {% endfor %}
+
+            <h1 class="govuk-heading-xl">{% block page_heading %}{{ _('Login') }}{% endblock %}</h1>
+            {% block form %}
+                {% snippet "user/snippets/login_form.html", action=g.login_handler, error_summary=error_summary %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="tw-hidden lg:tw-block tw-relative tw-w-0 tw-flex-1">
+        {#<img class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover"
+             src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80" alt="">#}
+        <img class="tw-absolute tw-inset-0 tw-h-full tw-w-full tw-object-cover"
+             src="/default/images/unsplash/login-photo.jpg" alt="">
+    </div>
+
+</div>
+{% endblock %}

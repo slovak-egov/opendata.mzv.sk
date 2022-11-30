@@ -1,0 +1,59 @@
+{# Banner #}
+<div class="tw-relative tw-overflow-hidden tw-bg-idsk-blue govuk-!-padding-top-8 govuk-!-padding-bottom-8 ">
+    <div class="map"></div>
+    <div id="particles-js"></div>
+
+    <div class="govuk-width-container tw-relative">
+        <div class="govuk-main-wrapper govuk-main-wrapper--auto-spacing">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-grid-column-one-half-from-desktop">
+                    <div>
+                        <h1 class="govuk-heading-xl tw-text-white tw-font-light">
+                            {% trans %}Discover the Open Data of the MFEA SR in one place{% endtrans %}.
+                        </h1>
+                        <a href="{{ h.url_for('home.about') }}" class="idsk-button tw-bg-idsk-light-blue hover:tw-bg-idsk-dark-blue" data-module="idsk-button">
+                            {{ _('Find out more') }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-full govuk-grid-column-one-half-from-desktop">
+                    {% if h.lang() != 'en' %}
+                        <div class="mzv-banner">
+                            <div class="tw-text-right">
+                                <p class="govuk-heading-xl tw-text-8xl tw-text-white govuk-!-margin-bottom-0 count"
+                                   data-target="{{ h.mzv_theme_sum_dataset() }}">{{ h.mzv_theme_sum_dataset() }}</p>
+                                <p class="govuk-body govuk-!-font-size-24 tw-text-white">{{ h.mzv_theme_declension_dataset() }}</p>
+
+                                <div class="idsk-header-web__main-action">
+                                    <form method="get" action="{% url_for 'dataset.search' %}" class="idsk-header-web__main-action-search tw-flex tw-w-full govuk-!-margin-bottom-0">
+                                        <input class="govuk-input govuk-!-display-inline-block"
+                                               id="idsk-header-web__main-action-search-input"
+                                               name="q" value="" type="search" autocomplete="off"
+                                               placeholder="{{ _('Search Datasets') }}" title="{{ _('Search Datasets') }}"
+                                               aria-describedby="input-width-30-hint" aria-label="{{ _('Search Datasets') }}">
+                                        <button type="submit" class="govuk-button tw-border-white"
+                                                data-module="govuk-button">
+                                            <span class="govuk-visually-hidden">{{ _('Search') }}</span>
+                                            <i aria-hidden="true" class="fas fa-search"></i>
+                                        </button>
+                                    </form>
+                                    <div class="idsk-header-web__main--buttons"></div>
+                                </div>
+
+                                <div class="govuk-!-margin-top-2">
+                                    {% set res_id = h.mzv_api_resource_id() %}
+                                    {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='mzv_api_info.html', resource_id=res_id) %}
+                                    <a href="{{ api_info_url }}" target="_blank" class="api govuk-link">
+                                        {{ _('Access the Data Catalog using the API') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

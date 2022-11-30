@@ -1,0 +1,38 @@
+{% macro license_string(pkg_dict) %}
+    {% if 'license_url' in pkg_dict %}
+        <a class="govuk-link govuk-link--no-visited-state" href="{{ pkg_dict.license_url }}"
+           rel="dc:rights">{{ pkg_dict.license_title }}</a>
+    {% else %}
+        {% if pkg_dict.license_id %}
+            <span property="dc:rights">{{ pkg_dict.license_title }}</span>
+        {% else %}
+            <div class="govuk-inset-text">
+                <p class="govuk-body-m">{{ _('No License Provided') }}</p>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% if text_only %}
+    {{ license_string(pkg_dict) }}
+{% else %}
+    <section class="tw-mt-5">
+        <h3 class="govuk-heading-m">
+            {#<svg xmlns="http://www.w3.org/2000/svg" class="tw-h-5 tw-w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>#}
+            {{ _('License') }}</h3>
+        <div class="tw-inline-flex tw-items-center">
+            <p class="govuk-body-s tw-mb-0">
+                {{ license_string(pkg_dict) }}
+            </p>
+            {% if pkg_dict.isopen %}
+                <a class="tw-ml-4" href="http://opendefinition.org/okd/"
+                   title="{{ _('This dataset satisfies the Open Definition.') }}">
+                    <img class="tw-block" src="{{ h.url_for_static('/base/images/od_80x15_blue.png') }}"
+                         alt="[Open Data]"/>
+                </a>
+            {% endif %}
+        </div>
+    </section>
+{% endif %}

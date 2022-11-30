@@ -1,0 +1,14 @@
+# mzv_theme-js:
+#   filter: rjsmin
+#   output: ckanext-mzv_theme/%(version)s-mzv_theme.js
+#   contents:
+#     - js/mzv_theme.js
+#   extra:
+#     preload:
+#       - base/main
+
+# mzv_theme-css:
+#   filter: cssrewrite
+#   output: ckanext-mzv_theme/%(version)s-mzv_theme.css
+#   contents:
+#     - css/mzv_theme.css

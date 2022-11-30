@@ -1,0 +1,28 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('About') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('About') }}</li>
+{% endblock %}
+
+{% block primary %}
+    <article class="" role="main">
+        <div class="">
+            {% block about %}
+                {% if g.site_about %}
+                    {{ h.render_markdown(g.site_about) }}
+                {% else %}
+                    <h1 class="govuk-heading-l">{{ _('About') }}</h1>
+                    {% if h.lang() == 'en' %}
+                        {% snippet 'home/snippets/about_text_en.html' %}
+                    {% else %}
+                        {% snippet 'home/snippets/about_text_sk.html' %}
+                    {% endif %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </article>
+{% endblock %}
+
+{% block secondary %}{% endblock %}

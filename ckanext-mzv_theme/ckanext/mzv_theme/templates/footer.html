@@ -1,0 +1,155 @@
+<section id="cta" class="tw-bg-gray-100 tw-mt-10">
+    <div class="govuk-width-container govuk-!-padding-top-9 govuk-!-padding-bottom-9">
+
+        <div class="govuk-!-padding-top-6
+                tw-flex-col tw-flex tw-items-center sm:tw-flex-row sm:tw-justify-between">
+            <div class="">
+                <h3 class="govuk-heading-xl tw-mb-0">{{ _('Get involved') }}</h3>
+            </div>
+            <div class="tw-mt-3">
+                <div class="tw-flex">
+                    <a href="https://www.instagram.com/diplomacia.sk/" class="govuk-!-margin-right-4">
+                        <i class="fab fa-instagram tw-text-black tw-text-4xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/mzv.sk" class="govuk-!-margin-right-4">
+                        <i class="fab fa-facebook tw-text-black tw-text-4xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/user/mzvsr" class="">
+                        <i class="fab fa-youtube tw-text-black tw-text-4xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% if h.lang() != 'en' %}
+        <hr class="idsk-hr-separator govuk-!-margin-bottom-9">
+
+        <div class="tw-flex tw-flex-col tw-items-center tw-justify-between md:tw-flex-row">
+            <div>
+                <div class="tw-flex tw-items-center">
+                    <h3 class="govuk-heading-xl govuk-!-margin-bottom-0 govuk-!-display-inline">
+                        {{ h.mzv_theme_sum_dataset() }}
+                    </h3>
+                    <span class="govuk-!-margin-left-4 tw-text-4xl">
+                        <i class="fas fa-file"></i>
+                    </span>
+                </div>
+                <p class="govuk-body">{{ h.mzv_theme_declension_dataset() }}</p>
+            </div>
+
+            <div>
+                <div class="tw-flex tw-items-center">
+                    <h3 class="govuk-heading-xl govuk-!-margin-bottom-0 govuk-!-display-inline">
+                        {{ h.mzv_theme_sum_organization() }}
+                    </h3>
+                    <span class="govuk-!-margin-left-4 tw-text-4xl">
+                        <i class="fas fa-users"></i>
+                    </span>
+                </div>
+                <p class="govuk-body">Organizácia</p>
+            </div>
+
+            <div>
+                <div class="tw-flex tw-items-center">
+                    <h3 class="govuk-heading-xl govuk-!-margin-bottom-0 govuk-!-display-inline">
+                        {{ h.mzv_theme_sum_group() }}
+                    </h3>
+                    <span class="govuk-!-margin-left-4 tw-text-4xl">
+                        <i class="fas fa-tags"></i>
+                    </span>
+                </div>
+                <p class="govuk-body">{{ h.mzv_theme_declension_group() }}</p>
+            </div>
+
+            <div>
+                <div class="tw-flex tw-items-center">
+                    <h3 class="govuk-heading-xl govuk-!-margin-bottom-0 govuk-!-display-inline">{{ h.mzv_theme_sum_resource() }}</h3>
+                    <span class="govuk-!-margin-left-4 tw-text-4xl">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </span>
+                </div>
+                <p class="govuk-body">Zdrojov</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<div data-module="idsk-footer-extended" class="">
+    <footer class="idsk-footer-extended idsk-footer-extended--up-button-enabled">
+        <div class="idsk-footer-extended-main-content tw-mt-5">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-column-full">
+                    <div class="idsk-footer-extended-description-panel">
+                        <div class="idsk-footer-extended-meta-item">
+                            <ul class="idsk-footer-extended-inline-list">
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Contact') }}" href="{{ h.url_for('mzv_theme.contact') }}">
+                                        {{ _('Contact') }}
+                                    </a>
+                                </li>
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Content manager') }}" href="{{ h.url_for('mzv_theme.content_manager') }}">
+                                        {{ _('Content manager') }}
+                                    </a>
+                                </li>
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Technical support') }}" href="{{ h.url_for('mzv_theme.technical_support') }}">
+                                        {{ _('Technical support') }}
+                                    </a>
+                                </li>
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Cookies') }}" href="{{ h.url_for('mzv_theme.cookies') }}">
+                                        {{ _('Cookies') }}
+                                    </a>
+                                </li>
+
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Terms of use') }}"
+                                       href="https://creativecommons.org/publicdomain/zero/1.0/{% if h.lang() == 'en' %}deed.en{% else %}deed.cz{% endif %}">
+                                        {{ _('Terms of use') }}
+                                    </a>
+                                </li>
+
+                                {% if h.lang() != 'en' %}
+                                    {% set res_id = h.mzv_api_resource_id() %}
+                                    {% set api_info_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='mzv_api_info.html', resource_id=res_id) %}
+                                    <li class="idsk-footer-extended-inline-list-item">
+                                        <a class="govuk-link" title="API" href="{{ api_info_url }}">
+                                            API
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li class="idsk-footer-extended-inline-list-item">
+                                    <a class="govuk-link" title="{{ _('Accessibility statement') }}"
+                                       href="{{ h.url_for('mzv_theme.accessibility_statement') }}">
+                                        {{ _('Accessibility statement') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="govuk-grid-column-two-thirds idsk-footer-extended-info-links">
+                            <p class="idsk-footer-extended-frame">
+                                {% trans %}
+                                    Created in accordance with <a class="govuk-link" title="Unified design of electronic services manual" href="https://idsk.gov.sk/">
+                                    Unified design of electronic services manual</a>.
+                                {% endtrans %}
+                            </p>
+                            <p class="idsk-footer-extended-frame">
+                                {% trans %}The service is operated by the Ministry of Foreign Affairs and European Affairs of the Slovak Republic{% endtrans %}.
+                            </p>
+                        </div>
+                        <div class="govuk-grid-column-one-third idsk-footer-extended-logo-box tw-grid tw-justify-items-end">
+                            <a href="{{ h.url_for('home.index') }}" title="{{ _('Home') }}">
+                                <img class="idsk-footer-extended-logo"
+                                     src="/default/images/logo/{% if h.lang() == 'en' %}mzv_black_en.svg{% else %}mzv_black_sk.svg{% endif %}"
+                                     alt="Logo - {% trans %}Ministry of Foreign and European Affairs of the Slovak Republic{% endtrans %}">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

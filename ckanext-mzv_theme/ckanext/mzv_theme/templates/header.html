@@ -1,0 +1,124 @@
+{% block header_wrapper %}
+
+    <header class="idsk-header-web " data-module="idsk-header-web">
+        <div class="idsk-header-web__tricolor"></div>
+
+        <div class="idsk-header-web__brand">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full">
+                        <div class="idsk-header-web__brand-gestor"></div>
+                        <div class="idsk-header-web__brand-spacer"></div>
+                        {% block header_lang %}
+                            {% snippet "snippets/mzv_language_selector.html" %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="idsk-header-web__main">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row">
+
+                    <div class="govuk-grid-column-full govuk-grid-column-one-third-from-desktop">
+                        <div class="idsk-header-web__main-headline">
+                            <a href="https://www.mzv.sk" title="Odkaz na Ministerstvo zahraničných vecí a európskych záležitostí SR">
+                                <img src="/default/images/logo/{% if h.lang() == 'en' %}mzv_color_en.svg{% else %}mzv_color_sk.svg{% endif %}"
+                                     alt="Logo - {% trans %}Ministry of Foreign and European Affairs of the Slovak Republic{% endtrans %}"
+                                     class="idsk-header-web__main-headline-logo">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="govuk-grid-column-two-thirds">
+                        <div class="idsk-header-web__main-action">
+                            <div class="idsk-header-web__main--buttons">
+                                <div class="idsk-header-web__main--login ">
+                                    {% if c.userobj %}
+                                        <div class="tw-flex tw-items-center idsk-header-web__main--login-action">
+                                            <img class="idsk-header-web__main--login-action-profile-img"
+                                                 src="/id-sk/assets/images/header-web/profile.svg" alt="Profile image">
+                                            <div class="idsk-header-web__main--login-action-text">
+                                            <span class="govuk-body-s idsk-header-web__main--login-action-text-user-name">
+                                              {{ c.userobj.display_name }}
+                                            </span>
+                                                <div class="govuk-!-margin-bottom-1">
+                                                    <a class="govuk-link idsk-header-web__main--login-action-text-logout"
+                                                       href="{{ h.url_for('/user/_logout') }}" title="Odhlásiť sa">
+                                                        {{ _('Log out') }}
+                                                    </a>
+                                                    <span> | </span>
+                                                    <a class="govuk-link idsk-header-web__main--login-action-text-profile"
+                                                       href="{{ h.url_for('user.edit', id=c.userobj.name) }}"
+                                                       title="Profil">
+                                                        {{ _('Profile') }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="idsk-header-web__nav idsk-header-web__nav--mobile ">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full"></div>
+                </div>
+
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full">
+                        <div class="idsk-header-web__main--buttons">
+                            <div class="idsk-header-web__main--login ">
+                                {% if c.userobj %}
+                                    <div class="tw-flex tw-items-center idsk-header-web__main--login-action">
+                                        <img class="idsk-header-web__main--login-action-profile-img"
+                                             src="/id-sk/assets/images/header-web/profile.svg" alt="Profile image">
+                                        <div class="idsk-header-web__main--login-action-text">
+                                    <span class="govuk-body-s idsk-header-web__main--login-action-text-user-name">
+                                        {{ c.userobj.display_name }}
+                                    </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="idsk-footer-extended-description-panel-top-border govuk-!-margin-bottom-3"></div>
+
+                                    <a href="{{ h.url_for('/user/_logout') }}" role="button" draggable="false"
+                                       class="idsk-button idsk-header-web__main--login-loginbtn govuk-!-margin-bottom-3"
+                                       data-module="idsk-button">
+                                        {{ _('Log out') }}
+                                    </a>
+                                    <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" role="button"
+                                       draggable="false"
+                                       class="idsk-button idsk-header-web__main--login-loginbtn"
+                                       data-module="idsk-button">
+                                        {{ _('Profile') }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ h.url_for('/user/login') }}" role="button" draggable="false"
+                                       class="idsk-button idsk-header-web__main--login-loginbtn"
+                                       data-module="idsk-button">
+                                        {{ _('Log in') }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    {%- block header_banner %}
+        {% include "includes/mzv_header_banner.html" %}
+    {% endblock -%}
+
+{% endblock %}

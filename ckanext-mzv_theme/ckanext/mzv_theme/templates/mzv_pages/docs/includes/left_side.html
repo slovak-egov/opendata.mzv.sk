@@ -1,0 +1,106 @@
+<div class="hidden lg:relative lg:block lg:flex-none">
+    <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50"></div>
+    <div class="sticky top-[4.5rem] -ml-0.5 h-[calc(100vh-4.5rem)] overflow-y-auto py-16 pl-0.5">
+        <div class="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800"></div>
+        <div class="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800"></div>
+        <nav class="text-base lg:text-sm w-64 pr-8 xl:w-72 xl:pr-16">
+            <ul role="list" class="space-y-9">
+                <li><h2 class="font-medium text-base text-slate-900">Úvod</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#ckan-version">Ckan v{{ h.ckan_version() }}</a></li>
+                    </ul>
+                </li>
+                <li><h2 class="font-medium text-base text-slate-900">Curl</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#curl">Možnosti CURL</a></li>
+                    </ul>
+                </li>
+                <li><h2 class="font-medium text-base text-slate-900">action.get</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#portal_status">Kontrola stavu portálu</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#organization_list">Zoznam všetkých organizácií</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#license_list">Zoznam licencií</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#group_list">Zoznam kategórií</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#tag_list">Zoznam tagov</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_list">Zoznam všetkých datasetov</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_search">Vyhľadanie datasetu</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_show">Podrobnosti o datasete</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#resource_search">Vyhľadanie zdroja/zdrojov podľa formátu</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#resource_show">Podrobnosti o zdroji</a></li>
+                    </ul>
+                </li>
+                <li><h2 class="font-medium text-base text-slate-900">action.create</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_create">Vytvoriť dataset</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#resource_create">Pridanie dátového zdroja do datasetu</a></li>
+                    </ul>
+                </li>
+
+                <li><h2 class="font-medium text-base text-slate-900">action.update</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_update">Aktualizovať dataset</a></li>
+
+                    </ul>
+                </li>
+
+                <li><h2 class="font-medium text-base text-slate-900">action.patch</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#patch_vs_update">Rozdiel medzi update a patch</a></li>
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#package_patch">Patch dataset</a></li>
+
+                    </ul>
+                </li>
+
+                <li><h2 class="font-medium text-base text-slate-900">action.delete</h2>
+                    <ul role="list"
+                        class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200">
+                        <li class="relative"><a
+                                class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full text-slate-500 before:hidden before:bg-sky-500 hover:text-sky-500 hover:before:block"
+                                href="#">-</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

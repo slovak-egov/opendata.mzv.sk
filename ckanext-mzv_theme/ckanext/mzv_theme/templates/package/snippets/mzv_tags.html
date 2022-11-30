@@ -1,0 +1,17 @@
+{#
+  Renders tags
+
+  tags - a list of tag dicts
+
+  Example:
+
+  {% snippet "package/snippets/tags.html", tags=pkg.tags %}
+
+#}
+{% if tags %}
+    <hr class="idsk-hr-separator govuk-!-margin-bottom-6">
+    <h3 class="govuk-heading-m">Tagy</h3>
+    <section class="govuk-width-container">
+        {% snippet 'snippets/mzv_tag_list.html', tags=tags, _class='idsk-list tw-mt-5' %}
+    </section>
+{% endif %}

@@ -1,0 +1,199 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('CKAN Data API') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li class="govuk-breadcrumbs__list-item" aria-current="page">{{ _('CKAN Data API') }}</li>
+{% endblock %}
+
+{#
+Displays information about accessing a resource via the API.
+
+resource_id - The resource id
+embedded - If true will not include the "modal" classes on the snippet.
+
+Example
+
+    {% snippet 'ajax_snippets/api_info.html', resource_id=resource_id, embedded=true %}
+
+#}
+
+{% set resource_id = h.sanitize_id(resource_id) %}
+{% set sql_example_url = h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search_sql', qualified=True) + '?sql=SELECT * from "' + resource_id + '" WHERE title LIKE \'jones\'' %}
+{# not urlencoding the sql because its clearer #}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
+            <h2 class="govuk-heading-l">{{ _('CKAN Data API') }}</h2>
+
+            <hr class="idsk-crossroad-line" aria-hidden="true">
+            <p class="govuk-body-m">
+                <strong>{{ _('Access resource data via a web API with powerful query support') }}</strong>.
+                {% trans %}
+                    Further information in the <a class="govuk-link govuk-link--no-visited-state"
+                                                  href="http://docs.ckan.org/en/latest/maintaining/datastore.html"
+                                                  target="_blank">main
+                    CKAN Data API and DataStore documentation</a>.
+                {% endtrans %}
+            </p>
+
+            {% if resource_id == h.mzv_api_resource_id() %}
+                <div class="idsk-warning-text">
+                    <div class="govuk-width-container">
+                        <div class="idsk-warning-text__text">
+                            {% trans %}Warning - resource_id is different for each data resource{% endtrans %}.
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <hr class="idsk-hr-separator govuk-!-margin-bottom-6">
+
+    <div class="govuk-accordion" data-module="idsk-accordion" id="1" data-attribute="value">
+        <div class="govuk-accordion__controls">
+            <button class="govuk-accordion__open-all" data-open-title="{{ _('Open all') }}"
+                    data-close-title="{{ _('Close all') }}" type="button" aria-expanded="false">
+                <span class="govuk-visually-hidden govuk-accordion__controls-span" data-section-title="sekcie"></span>
+            </button>
+        </div>
+
+        <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                    <span class="govuk-accordion__section-button" id="1-heading-1">
+                      {{ _('Endpoints') }}
+                    </span>
+                </h2>
+            </div>
+            <div id="1-content-1" class="govuk-accordion__section-content" aria-labelledby="1-heading-1">
+                <p class='govuk-body'>{{ _('The Data API can be accessed via the following actions of the CKAN action API.') }}</p>
+                <table class="idsk-table">
+                    <thead class="idsk-table__head"></thead>
+                    <tbody class="idsk-table__body">
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header">{{ _('Query') }}</th>
+                        <td class="idsk-table__cell">
+                            <code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', qualified=True) }}</code>
+                        </td>
+                    </tr>
+                    <tr class="idsk-table__row">
+                        <th scope="row" class="idsk-table__header tw-border-b-0">{{ _('Query (via SQL)') }}</th>
+                        <td class="idsk-table__cell tw-border-b-0">
+                            <code>{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search_sql', qualified=True) }}</code>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                    <span class="govuk-accordion__section-button" id="1-heading-2">
+                      {{ _('Querying') }}
+                    </span>
+                </h2>
+            </div>
+            <div id="1-content-2" class="govuk-accordion__section-content" aria-labelledby="1-heading-2">
+                <div class="">
+                    <strong class="govuk-body">{{ _('Query example (first 5 results)') }}</strong>
+                    <p>
+                        <code>
+                            <a class="govuk-link govuk-link--no-visited-state"
+                               href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5, qualified=True) }}"
+                               target="_blank"
+                               rel="nofollow">{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5, qualified=True) }}
+                            </a>
+                        </code>
+                    </p>
+
+                    <strong class="govuk-body">{{ _('Query example (results containing \'jones\')') }}</strong>
+                    <p>
+                        <code>
+                            <a class="govuk-link govuk-link--no-visited-state"
+                               href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, q='jones', qualified=True) }}"
+                               target="_blank"
+                               rel="nofollow">{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, q='jones', qualified=True) }}
+                            </a>
+                        </code>
+                    </p>
+
+                    <strong class="govuk-body">{{ _('Query example (via SQL statement)') }}</strong>
+                    <p>
+                        <code>
+                            <a class="govuk-link govuk-link--no-visited-state" href="{{ sql_example_url }}"
+                               target="_blank"
+                               rel="nofollow">{{ sql_example_url }}
+                            </a>
+                        </code>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                    <span class="govuk-accordion__section-button" id="1-heading-3">
+                      {{ _('Example: Javascript') }}
+                    </span>
+                </h2>
+            </div>
+            <div id="1-content-3" class="govuk-accordion__section-content" aria-labelledby="1-heading-3">
+                <div class="">
+                    <p class="govuk-body">{{ _('A simple ajax (JSONP) request to the data API using jQuery.') }}</p>
+                    <pre class="tw-overflow-x-auto">
+                        <code class="govuk-body-s">
+var data = {
+    resource_id: '{{ resource_id }}', // the resource id
+    limit: 5, // get 5 results
+    q: 'jones' // query for 'jones'
+};
+$.ajax({
+    url: '{{ h.url_for(controller='api', action='action', ver=3, logic_function='datastore_search', qualified=True) }}',
+    data: data,
+    dataType: 'jsonp',
+    success: function(data) {
+        alert('Total results found: ' + data.result.total)
+    }
+});
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                    <span class="govuk-accordion__section-button" id="1-heading-4">
+                      {{ _('Example: Python') }}
+                    </span>
+                </h2>
+            </div>
+            <div id="1-content-4" class="govuk-accordion__section-content" aria-labelledby="1-heading-4">
+                <div class="">
+                    <pre class="tw-overflow-x-auto">
+                        <code class="govuk-body-s">
+import urllib
+url = '{{ h.url_for(qualified=True, controller='api', action='action', ver=3, logic_function='datastore_search', resource_id=resource_id, limit=5) + '&q=title:jones' }}'  {# not urlencoding the ":" because its clearer #}
+fileobj = urllib.urlopen(url)
+print fileobj.read()
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

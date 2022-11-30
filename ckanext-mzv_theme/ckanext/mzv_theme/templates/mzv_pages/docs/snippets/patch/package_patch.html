@@ -1,0 +1,31 @@
+<h3 id="package_patch">Patch dataset</h3>
+<p>Pomocou package_patch môžete čiastočne aktualizovať a/alebo vytvárať zdroje.
+                Ak aktualizujete existujúce zdroje, nezabudnite zadať id zdroja.
+                Existujúce zdroje vylúčené z package_patch data_dict budú odstránené.
+                Zdroje v balíku data_dict bez id sa budú považovať za nové zdroje a pridajú sa.
+                Nové zdroje pridané metódou patch nevytvárajú predvolené zobrazenia.</p>
+<p>
+    <a target="_blank" href="https://docs.ckan.org/en/2.9/api/index.html#ckan.logic.action.patch.package_patch">
+        ckan.logic.action.patch.package_patch(context, data_dict)
+    </a>
+</p>
+
+<pre class="language-sh prism-code"><code><span
+        class="token function">curl</span> -X POST {{ h.url_for(controller='api', action='action', ver=3, logic_function='package_patch', qualified=True) }} \
+-H <span class="token string">"Authorization: {API_KEY}"</span> \
+-d <span class="token string">'{
+
+   }'</span>
+</code></pre>
+
+<p>Odpoveď:</p>
+
+<pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=package_patch"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"license_title"</span><span class="token operator">:</span> <span class="token null keyword">"Creative Commons CCZero"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>

@@ -1,0 +1,25 @@
+
+            <h3 id="resource_search">Vyhľadanie zdroja/zdrojov podľa formátu</h3>
+
+            <p>
+                <a target="_blank" href="{{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_search', qualified=True) }}?query=format:csv">
+                {{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_search', qualified=True) }}?query=format:csv</a>
+            </p>
+
+            <pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=resource_search"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">43</span><span class="token punctuation">,</span>
+    <span class="token property">"results"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"mimetype"</span><span class="token operator">:</span> <span class="token null keyword">text/csv</span><span class="token punctuation">,</span>
+        ...
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+
+

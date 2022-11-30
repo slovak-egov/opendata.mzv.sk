@@ -1,0 +1,33 @@
+<h3 id="resource_create">Pridanie dátového zdroja do datasetu</h3>
+<p>
+    <a target="_blank" href="https://docs.ckan.org/en/2.9/api/#ckan.logic.action.create.resource_create">
+        ckan.logic.action.create.resource_create(context, data_dict)
+    </a>
+</p>
+
+<pre class="language-sh prism-code"><code><span
+        class="token function">curl</span> -X POST {{ h.url_for(controller='api', action='action', ver=3, logic_function='resource_create', qualified=True) }} \
+-H <span class="token string">"Authorization: {API_KEY}"</span> \
+-d <span class="token string">'{
+  "package_id": "nazov-datasetu",
+  "url":  "https://raw.githubusercontent.com/frictionlessdata/test-data/master/files/csv/100kb.csv",
+  "description": "TEST: Zoznam užívateľov z GitHubu" ,
+  "name": "zoznam-uzivatelov",
+  "size": 100000
+   }'</span>
+</code></pre>
+
+<p>Odpoveď:</p>
+
+<pre class="language-json prism-code"><code><span class="token punctuation">{</span>
+  <span class="token property">"help"</span><span class="token operator">:</span> <span class="token string">"{{ h.url_for(controller='api', action='action', ver=3, logic_function='help_show', qualified=True) }}?name=resource_create"</span><span class="token punctuation">,</span>
+  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"cache_last_updated"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+<p>Teraz by sme mali vidieť náš dataset na portáli a vložený dátový zdroj na adrese: <a target="_blank" href="{{ h.url_for('/dataset', qualified=true) }}/nazov-datasetu">{{ h.url_for('/dataset', qualified=true) }}/nazov-datasetu</a></p>
+
