@@ -6,6 +6,7 @@
 
 # allowed root directories
 !/ckanext-mzv_theme/
+!/img
 
 # files allowed anywhere
 !readme.md
