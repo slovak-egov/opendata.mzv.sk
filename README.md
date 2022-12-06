@@ -14,41 +14,41 @@ Creative Commons CC0.
 ---
 <br>
 
-*Úvodná stránka portálu*
+**Úvodná stránka portálu**
 
 ![Úvodná stránka portálu](./img/home_page.png)
 
 ---
 <br>
 
-*Katalóg s filtrom*
+**Katalóg s filtrom**
 
 ![Katalóg s filtrom](./img/kat_filter.png)
 
 ---
 <br>
 
-*Detail datasetu*
+**Detail datasetu**
 
 ![Detail datasetu](./img/detail_dataset.png)
 
 ---
 <br>
 
-*Detail dátového zdroja*
+**Detail dátového zdroja**
 
 ![Detail dátového zdroja](./img/detail.png)
 
 ---
 <br>
 
-*API*
+**API**
 
 ![API](./img/api_1.png)
 
 ---
 <br>
 
-*API dokumentácia / CURL syntax*
+**API dokumentácia / CURL syntax**
 
 ![API](./img/api_2.png)
