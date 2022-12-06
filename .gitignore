@@ -9,6 +9,7 @@
 
 # files allowed anywhere
 !readme.md
+!Licence.MD.txt
 
 # specifically ignore certain deeper items
 app-mzv/ckanext-mzv_theme/ckanext_mzv_theme.egg-info/*
