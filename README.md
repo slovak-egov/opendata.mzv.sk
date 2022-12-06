@@ -1,4 +1,5 @@
 # Open Data údaje MZVEZ SR
+
 ## O projekte
 
 Portál [opendata.mzv.sk](opendata.mzv.sk) bol vytvorený za účelom sprístupnenia otvorených údajov
@@ -19,7 +20,7 @@ Creative Commons CC0.
 
 ---
 
-### - Katalóg s filtrom
+### Katalóg s filtrom
 
 ![Katalóg s filtrom](./img/kat_filter.png)
 
