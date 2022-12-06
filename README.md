@@ -25,7 +25,7 @@ Creative Commons CC0.
 
 ---
 
-### #Detail datasetu
+### Detail datasetu
 
 ![Detail datasetu](./img/detail_dataset.png)
 
