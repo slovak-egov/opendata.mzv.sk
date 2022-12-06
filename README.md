@@ -1,5 +1,5 @@
 # Open Data údaje MZVEZ SR
-### O projekte
+## O projekte
 
 Portál [opendata.mzv.sk](opendata.mzv.sk) bol vytvorený za účelom sprístupnenia otvorených údajov
 z činnosti Ministerstva zahraničných vecí a európskych záležitostí SR.
@@ -13,13 +13,13 @@ Creative Commons CC0.
 
 ---
 
-#### Úvodná stránka portálu
+### Úvodná stránka portálu
 
 ![Úvodná stránka portálu](./img/home_page.png)
 
 ---
 
-#### Katalóg s filtrom
+### - Katalóg s filtrom
 
 ![Katalóg s filtrom](./img/kat_filter.png)
 
@@ -31,18 +31,18 @@ Creative Commons CC0.
 
 ---
 
-#### Detail dátového zdroja
+### Detail dátového zdroja
 
 ![Detail dátového zdroja](./img/detail.png)
 
 ---
 
-#### API
+### API
 
 ![API](./img/api_1.png)
 
 ---
 
-#### API dokumentácia / CURL syntax
+### API dokumentácia / CURL syntax
 
 ![API](./img/api_2.png)
